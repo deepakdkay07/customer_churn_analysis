@@ -24,10 +24,10 @@ matplotlib.rcParams['font.size']=14
 matplotlib.rcParams['figure.figsize']=(10,6)
 matplotlib.rcParams['figure.facecolor']='#00000000'
 
-def accuracy_heatmap(pipeline):
+def accuracy_heatmap(pipeline,name=''):
     all_cols=pipeline.named_steps['preprocessor'].get_feature_names_out()
     acc=pipeline.score(X_test,y_test)
-    st.write(f"The Accuracy on Test Dataset with LogisticRegression Model is : {acc:.2%}")
+    st.write(f"The Accuracy on Test Dataset with {name} Model is : {acc:.2%}")
     test_predict=pipeline.predict(X_test)
     cf = confusion_matrix(y_test, test_predict,normalize='true')    
     fig, ax = plt.subplots(figsize=(5,4))   
@@ -121,7 +121,7 @@ if choose == "Churn Dataset Analysis":
 
     elif mdl in ["LogisticRegression","DecisionTreeClassifier","DecisionTreeClassifier_HyperTuned","RandomForestClassifier","RandomForestClassifier_HyperTuned"]:
         #print(map_[mdl])
-        accuracy_heatmap(map_[mdl])
+        accuracy_heatmap(map_[mdl],mdl)
 
 
 elif choose == "Single Value Input" :
